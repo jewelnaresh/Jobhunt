@@ -30,7 +30,7 @@ class Jobseeker(models.Model):
 class JobData(models.Model):
     company_name = models.CharField(max_length=128)
     job_title = models.CharField(max_length=128)
-    link = models.CharField(max_length=64)
+    link = models.CharField(max_length=256)
     slug = models.SlugField(default="test-job")
 
     def __str__(self):
