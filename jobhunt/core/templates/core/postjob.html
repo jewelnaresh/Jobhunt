@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Scraper{% endblock %}
+{% block extracss%}
+<link rel="stylesheet" href="{% static 'css/postjob.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-4 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+          <img src="https://imgprod65.hobbylobby.com/sys-master/migrated/hfc/he7/h00/9015950999582/191288_2[5].jpg" class="mb-3"  style="width: 150px; height: 150px; margin-left: 18%;" />
+            <h5 class="card-title text-center">Job Description</h5>
+            <form class="form-signin" action="/register" method="POST">
+            {% csrf_token %}
+              <div class="form-label-group">
+                <input type="text" name="company_name" class="form-control" placeholder="Company Name" required autofocus>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="job_title" class="form-control" placeholder="Job Title" required>
+              </div>
+              <div class="form-label-group">
+                <input style="height:100px;" type="text" name="description" class="form-control" placeholder="Description" required>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Post!</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
