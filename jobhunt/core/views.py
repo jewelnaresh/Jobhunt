@@ -3,10 +3,19 @@ from django.views.generic import ListView
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
 from .models import JobData
 from .scraper import Data, Website, Crawler
 
+@csrf_exempt
+def api(request):
+    req = json.loads(request.body)
+    action = req.get('queryResult').get('action')
+    fulfillmentText = {'fulfillmentText': 'This is Django test response from webhook.'}
+    return JsonResponse(fulfillmentText, safe=False)
 
 def postjob(request):
     return render(request, 'core/postjob.html')
