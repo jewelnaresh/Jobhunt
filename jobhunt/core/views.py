@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .df_response_lib import *
 import json
 
 from .models import JobData
@@ -14,8 +15,24 @@ from .scraper import Data, Website, Crawler
 def api(request):
     req = json.loads(request.body)
     action = req.get('queryResult').get('action')
-    fulfillmentText = {'fulfillmentText': 'This is Django test response from webhook.'}
-    return JsonResponse(fulfillmentText, safe=False)
+    if action == 'get_link':
+
+        fulfillmentText = 'link out suggestion Response from webhook'
+
+        aog = actions_on_google_response()
+        aog_sr = aog.simple_response([
+            [fulfillmentText, fulfillmentText, False]
+        ])
+
+        link_out_suggestion = aog.link_out_suggestion("Pragnakalp Techlabs", "https://pragnakalp.com")
+
+        ff_response = fulfillment_response()
+        ff_text = ff_response.fulfillment_text(fulfillmentText)
+        ff_messages = ff_response.fulfillment_messages([aog_sr, link_out_suggestion])
+
+        reply = ff_response.main_response(ff_text, ff_messages)
+
+    return JsonResponse(reply, safe=False)
 
 def postjob(request):
     return render(request, 'core/postjob.html')
