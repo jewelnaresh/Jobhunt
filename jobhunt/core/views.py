@@ -31,8 +31,7 @@ def api(request):
         ff_messages = ff_response.fulfillment_messages([aog_sr, link_out_suggestion])
 
         reply = ff_response.main_response(ff_text, ff_messages)
-
-    return JsonResponse(reply, safe=False)
+        return JsonResponse(reply, safe=False)
 
 def postjob(request):
     return render(request, 'core/postjob.html')
