@@ -15,7 +15,7 @@ def api(request):
     req = json.loads(request.body)
     action = req.get('queryResult').get('action')
     qs = JobData.objects.all()[0:10]
-    fulfillmentText = {'fulfillmentText': info.url for info in qs}
+    fulfillmentText = {'fulfillmentText': info.link for info in qs}
     return JsonResponse(fulfillmentText, safe=False)
 
 def postjob(request):
